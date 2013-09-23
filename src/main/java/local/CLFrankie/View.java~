@@ -1,0 +1,74 @@
+package local.CLFrankie;
+
+import java.awt.*;
+import java.awt.event.*;
+
+public class View extends Frame
+{
+	public static void main(String[] args)
+	{
+		View v = new View("Sudoky");
+		v.setSize(450, 350);
+		v.setLocation(600, 50);
+		v.setVisible(true);
+	}
+
+	public TextField[][] textBoxes;	
+
+	public View(String title)
+	{
+		super(title);
+		setBackground(Color.white);
+		
+		GridBagLayout gridBag = new GridBagLayout();
+		GridBagConstraints c = new GridBagConstraints();
+		setLayout(gridBag);
+
+		Panel pnTextBoxes = new Panel(new GridLayout(9, 9));
+		textBoxes = new TextField[9][9];
+
+		for(int i = 0; i < textBoxes.length; i++)
+		{
+			for(int j = 0; j < textBoxes[i].length; j++)
+			{
+				textBoxes[i][j] = new TextField(2);
+				pnTextBoxes.add(textBoxes[i][j]);
+			}
+		}
+
+		c.fill = GridBagConstraints.BOTH;
+		
+		c.gridwidth = GridBagConstraints.REMAINDER;
+		gridBag.setConstraints(pnTextBoxes, c);
+		add(pnTextBoxes);
+
+		Panel pnButton = new Panel();
+		Button btSolve = new Button("Solve");
+		btSolve.addActionListener(new SolveListener());
+		pnButton.add(btSolve);
+	
+		c.gridwidth = GridBagConstraints.REMAINDER;
+		gridBag.setConstraints(pnTextBoxes, c);	
+		add(pnButton);
+	}	
+}
+
+public class SolveListener extends ActionListener
+{
+	public void actionPerformed(ActionEvent evt)
+	{
+		int[][] board = new int[9][9];
+		for(int i = 0; i < textBoxes.length; i++)
+			for(int j = 0; j < textBoxes[i].length; j++)
+				board[i][j] = Integer.parseInt(textBoxes[i][j].getText());
+		
+		//------------------------- calculating --------------------------------
+		Board board = new Board(board);
+		Sudoky.solve(board);
+		//----------------------------------------------------------------------
+		
+		for(int i = 0; i < textBoxes.length; i++)
+			for(int j = 0; j < textBoxes[i].length; j++)
+				textBoxes[i][j].setText(board.mData[i][j]);;	
+	}
+}

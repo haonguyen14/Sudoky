@@ -1,0 +1,9 @@
+local/CLFrankie/Sudoky.class
+local/CLFrankie/View.class
+local/CLFrankie/View$ClearListener.class
+local/CLFrankie/Board.class
+local/CLFrankie/InsertionSort.class
+local/CLFrankie/Candidate.class
+local/CLFrankie/View$SolveListener.class
+local/CLFrankie/View$WindowListenerExit.class
+local/CLFrankie/BinarySearch.class
